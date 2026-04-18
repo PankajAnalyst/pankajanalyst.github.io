@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pankaj Dhankhar — Sr. BI Consultant & HR Analytics Expert. 10+ years turning workforce, financial, and operational data into decisions that move the needle.">
+    <title>Pankaj Dhankhar | Sr. BI Consultant & HR Analytics Expert</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0B0E11;
+            --surface: #12161B;
+            --card: #181D24;
+            --card-hover: #1E242C;
+            --accent: #00E5A0;
+            --accent-dim: rgba(0, 229, 160, 0.12);
+            --accent-glow: rgba(0, 229, 160, 0.06);
+            --text: #E2E8F0;
+            --text-bright: #F8FAFC;
+            --muted: #7A8BA0;
+            --border: rgba(255,255,255,0.06);
+            --border-accent: rgba(0, 229, 160, 0.2);
+            --font-heading: 'Instrument Serif', Georgia, serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-mono: 'DM Mono', monospace;
+            --max-width: 1140px;
+            --radius: 10px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent) var(--surface);
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ── NOISE OVERLAY ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* ── GRID BG ── */
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(11, 14, 17, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px;
+            transition: all 0.3s ease;
+        }
+
+        nav .nav-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        nav .logo {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        nav .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        nav .nav-links a {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--muted);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
+            text-transform: uppercase;
+        }
+
+        nav .nav-links a:hover,
+        nav .nav-links a.active {
+            color: var(--accent);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* ── SECTIONS ── */
+        section {
+            position: relative;
+            z-index: 1;
+            padding: 100px 24px;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        /* ── SECTION LABELS ── */
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 400;
+            color: var(--text-bright);
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            color: var(--muted);
+            font-size: 17px;
+            max-width: 600px;
+            line-height: 1.7;
+            margin-bottom: 48px;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 64px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-eyebrow {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--accent);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero-eyebrow .pulse {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0,229,160,0.4); }
+            50% { opacity: 0.7; box-shadow: 0 0 0 8px rgba(0,229,160,0); }
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(42px, 7vw, 80px);
+            font-weight: 400;
+            color: var(--text-bright);
+            line-height: 1.08;
+            margin-bottom: 28px;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .hero-desc {
+            font-size: 18px;
+            color: var(--muted);
+            max-width: 580px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .hero-metrics {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .hero-metric {
+            border-left: 2px solid var(--accent);
+            padding-left: 16px;
+        }
+
+        .hero-metric .number {
+            font-family: var(--font-mono);
+            font-size: 28px;
+            font-weight: 500;
+            color: var(--text-bright);
+        }
+
+        .hero-metric .label {
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            background: var(--accent);
+            color: var(--bg);
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: var(--radius);
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: #00FFB2;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 229, 160, 0.25);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            background: transparent;
+            color: var(--text);
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 400;
+            text-decoration: none;
+            border-radius: var(--radius);
+            letter-spacing: 0.5px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* ── ABOUT ── */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 64px;
+            align-items: start;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 16.5px;
+            line-height: 1.8;
+        }
+
+        .about-text p:first-child::first-letter {
+            font-family: var(--font-heading);
+            font-size: 56px;
+            float: left;
+            line-height: 1;
+            margin-right: 12px;
+            margin-top: 4px;
+            color: var(--accent);
+        }
+
+        .about-sidebar {
+            position: sticky;
+            top: 100px;
+        }
+
+        .about-sidebar h4 {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .domain-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+
+        .domain-tag {
+            padding: 6px 14px;
+            background: var(--accent-dim);
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-accent);
+        }
+
+        /* ── ROLE CARDS ── */
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .role-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 36px 28px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .role-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .role-card:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-4px);
+            background: var(--card-hover);
+        }
+
+        .role-card:hover::before { opacity: 1; }
+
+        .role-card h3 {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            color: var(--text-bright);
+            margin-bottom: 16px;
+        }
+
+        .role-card .what-they-want {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .role-card p {
+            font-size: 14.5px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .role-card .delivered {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .role-card .delivered-text {
+            font-size: 14.5px;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* ── IMPACT METRICS ── */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .metric-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.4s;
+        }
+
+        .metric-card:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-3px);
+        }
+
+        .metric-card .metric-value {
+            font-family: var(--font-mono);
+            font-size: 36px;
+            font-weight: 500;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .metric-card .metric-label {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        /* ── CASE STUDIES ── */
+        .case-study {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+
+        .case-study:hover {
+            border-color: var(--border-accent);
+        }
+
+        .case-study-header {
+            padding: 28px 32px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            user-select: none;
+        }
+
+        .case-study-header:hover { background: var(--card-hover); }
+
+        .case-study-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex: 1;
+        }
+
+        .case-study-number {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--accent);
+            min-width: 28px;
+        }
+
+        .case-study-title {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            color: var(--text-bright);
+        }
+
+        .case-study-tags {
+            display: flex;
+            gap: 8px;
+        }
+
+        .cs-tag {
+            padding: 4px 10px;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .case-study-toggle {
+            font-size: 20px;
+            color: var(--muted);
+            transition: transform 0.3s;
+            flex-shrink: 0;
+        }
+
+        .case-study.open .case-study-toggle {
+            transform: rotate(45deg);
+            color: var(--accent);
+        }
+
+        .case-study-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .case-study.open .case-study-body {
+            max-height: 800px;
+        }
+
+        .case-study-content {
+            padding: 0 32px 32px 56px;
+        }
+
+        .cs-section {
+            margin-bottom: 20px;
+        }
+
+        .cs-section-label {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .cs-section p {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        .cs-outcomes {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            padding-top: 8px;
+        }
+
+        .cs-outcome {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .cs-outcome .val {
+            font-family: var(--font-mono);
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--accent);
+        }
+
+        .cs-outcome .desc {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        /* ── PROJECTS ── */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .project-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px 28px;
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .project-card:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-3px);
+        }
+
+        .project-card .project-status {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+
+        .project-card .project-status.live {
+            color: var(--accent);
+            background: var(--accent-dim);
+            border: 1px solid var(--border-accent);
+        }
+
+        .project-card .project-status.building {
+            color: #F59E0B;
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .project-card h3 {
+            font-family: var(--font-heading);
+            font-size: 21px;
+            color: var(--text-bright);
+            margin-bottom: 12px;
+        }
+
+        .project-card p {
+            font-size: 14.5px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .project-card .project-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .project-card .project-stack span {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--muted);
+            padding: 3px 8px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+        }
+
+        /* ── PROCESS ── */
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            position: relative;
+        }
+
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-accent), var(--border-accent), transparent);
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-num {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--card);
+            border: 2px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-family: var(--font-mono);
+            font-size: 14px;
+            color: var(--accent);
+            position: relative;
+            z-index: 2;
+        }
+
+        .process-step h4 {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            color: var(--text-bright);
+            margin-bottom: 8px;
+        }
+
+        .process-step p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* ── BEYOND ── */
+        .beyond-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .beyond-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px 24px;
+            transition: all 0.4s;
+        }
+
+        .beyond-card:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-3px);
+        }
+
+        .beyond-card .beyond-icon {
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .beyond-card h4 {
+            font-family: var(--font-heading);
+            font-size: 19px;
+            color: var(--text-bright);
+            margin-bottom: 10px;
+        }
+
+        .beyond-card p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* ── TOOLS ── */
+        .tools-categories {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .tool-category {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px 24px;
+        }
+
+        .tool-category h4 {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .tool-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tool-item {
+            padding: 6px 14px;
+            background: var(--surface);
+            color: var(--text);
+            font-family: var(--font-mono);
+            font-size: 12.5px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .tool-item:hover {
+            border-color: var(--border-accent);
+            color: var(--accent);
+        }
+
+        /* ── ARTICLES ── */
+        .articles-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .article-item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            transition: all 0.4s;
+            text-decoration: none;
+        }
+
+        .article-item:hover {
+            border-color: var(--border-accent);
+            transform: translateX(6px);
+            background: var(--card-hover);
+        }
+
+        .article-item h4 {
+            font-family: var(--font-heading);
+            font-size: 19px;
+            color: var(--text-bright);
+            margin-bottom: 4px;
+        }
+
+        .article-item p {
+            font-size: 13.5px;
+            color: var(--muted);
+        }
+
+        .article-item .arrow {
+            color: var(--accent);
+            font-size: 20px;
+            opacity: 0;
+            transform: translateX(-8px);
+            transition: all 0.3s;
+        }
+
+        .article-item:hover .arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ── CONTACT ── */
+        .contact-section {
+            text-align: center;
+        }
+
+        .contact-section .section-subtitle {
+            margin: 0 auto 40px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 40px 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        footer p {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* ── ANIMATIONS ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── SEPARATOR ── */
+        .section-sep {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .roles-grid { grid-template-columns: 1fr; }
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+            .process-steps { grid-template-columns: 1fr; gap: 24px; }
+            .process-steps::before { display: none; }
+            .about-grid { grid-template-columns: 1fr; gap: 40px; }
+            .tools-categories { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            section { padding: 70px 20px; }
+            .hero h1 { font-size: 36px; }
+            .hero-metrics { gap: 24px; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .beyond-grid { grid-template-columns: 1fr; }
+            .tools-categories { grid-template-columns: 1fr; }
+            .metrics-grid { grid-template-columns: 1fr 1fr; }
+            .case-study-tags { display: none; }
+            .case-study-title { font-size: 17px; }
+
+            nav .nav-links { 
+                display: none;
+                position: absolute;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: rgba(11, 14, 17, 0.97);
+                flex-direction: column;
+                padding: 24px;
+                gap: 20px;
+                border-bottom: 1px solid var(--border);
+            }
+
+            nav .nav-links.open { display: flex; }
+            .mobile-toggle { display: block; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-metrics { flex-direction: column; gap: 20px; }
+            .hero-ctas { flex-direction: column; }
+            .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<!-- ════════════ NAV ════════════ -->
+<nav>
+    <div class="nav-inner">
+        <a href="#hero" class="logo">PD_</a>
+        <button class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu">☰</button>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#impact">Impact</a></li>
+            <li><a href="#case-studies">Case Studies</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#tools">Tools</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ════════════ HERO ════════════ -->
+<section class="hero" id="hero">
+    <div class="container hero-content">
+        <div class="hero-eyebrow reveal">
+            <span class="pulse"></span>
+            Available for opportunities
+        </div>
+        <h1 class="reveal">I turn workforce data<br>into <em>decisions that<br>actually ship.</em></h1>
+        <p class="hero-desc reveal">Sr. BI Consultant with 10+ years across HR, Finance, and Operations — building dashboards that executives check every Monday, not just every quarter.</p>
+        <div class="hero-metrics reveal">
+            <div class="hero-metric">
+                <div class="number">6</div>
+                <div class="label">Production Dashboards</div>
+            </div>
+            <div class="hero-metric">
+                <div class="number">10+</div>
+                <div class="label">Years Experience</div>
+            </div>
+            <div class="hero-metric">
+                <div class="number">97%</div>
+                <div class="label">SLA Adherence</div>
+            </div>
+            <div class="hero-metric">
+                <div class="number">35%</div>
+                <div class="label">Faster Time-to-Fill</div>
+            </div>
+        </div>
+        <div class="hero-ctas reveal">
+            <a href="#contact" class="btn-primary">Get in Touch →</a>
+            <a href="#case-studies" class="btn-secondary">See the Work</a>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════ ABOUT ════════════ -->
+<section id="about">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-text">
+                <div class="section-label reveal">About</div>
+                <h2 class="section-title reveal">The short version? I started in<br>telecom, wandered into HR,<br>and found my edge in data.</h2>
+                <div class="reveal">
+                    <p>My career didn't follow a straight line — and honestly, that's the whole point. I started as a Network Engineer at Ericsson, laying cable and debugging signal issues. Good work, but it wasn't where my brain wanted to live. What kept pulling me in was the people side: who's getting hired, who's staying, what's actually making teams tick.</p>
+                    <p>So I moved into HR. Spent years doing the full-cycle thing — recruitment, vendor management, performance tracking, the works. But the part I kept gravitating toward was the numbers underneath it all. Nobody was building dashboards for hiring funnels or bench utilization. Everybody was running on gut feel and spreadsheets that were three weeks stale. So I started building them myself.</p>
+                    <p>Four years of Power BI later, I've shipped 6 production dashboards across BCG, CNH Industrial, and Nokia — covering everything from recruitment pipelines to commercial billing to attrition early warnings. The thing that makes my work different is simple: I've sat in the HR meetings, heard the questions leadership actually asks, and then went back and built the exact views that answer them. I don't build dashboards for analysts — I build them for the people making the calls.</p>
+                </div>
+            </div>
+            <div class="about-sidebar reveal">
+                <h4>Core Domains</h4>
+                <div class="domain-tags">
+                    <span class="domain-tag">HR Analytics</span>
+                    <span class="domain-tag">Workforce Planning</span>
+                    <span class="domain-tag">Recruitment Funnels</span>
+                    <span class="domain-tag">Resource Deployment</span>
+                    <span class="domain-tag">Commercial Billing</span>
+                    <span class="domain-tag">Attrition Modeling</span>
+                    <span class="domain-tag">Executive KPIs</span>
+                    <span class="domain-tag">Vendor Governance</span>
+                </div>
+                <h4>Education</h4>
+                <div style="margin-bottom:24px;">
+                    <p style="font-size:14px;color:var(--text);margin-bottom:4px;font-weight:500;">MBA — HR & Finance</p>
+                    <p style="font-size:12px;color:var(--muted);">DITM, DCRUST University · 2014–2016</p>
+                </div>
+                <div>
+                    <p style="font-size:14px;color:var(--text);margin-bottom:4px;font-weight:500;">B.Tech — ECE</p>
+                    <p style="font-size:12px;color:var(--muted);">PIET, Kurukshetra University · 2008–2012</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ════════════ ROLE-BASED POSITIONING ════════════ -->
+<section id="roles">
+    <div class="container">
+        <div class="section-label reveal">What I'm Looking For</div>
+        <h2 class="section-title reveal">Three roles. One thread.</h2>
+        <p class="section-subtitle reveal">Each of these roles needs someone who doesn't just know the tools — but knows the business problems behind the dashboards.</p>
+        <div class="roles-grid">
+            <div class="role-card reveal">
+                <div class="what-they-want">What companies want</div>
+                <h3>Sr. Power BI Developer / BI Lead</h3>
+                <p>Someone who can architect enterprise-grade BI solutions, model data cleanly, and deliver dashboards that leadership actually trusts and uses daily.</p>
+                <div class="delivered">What I've delivered</div>
+                <p class="delivered-text">6 production dashboards from scratch across 3 verticals — star-schema models, 12+ DAX measure libraries, automated refresh pipelines. Zero legacy dependency.</p>
+            </div>
+            <div class="role-card reveal">
+                <div class="what-they-want">What companies want</div>
+                <h3>People Analytics Lead</h3>
+                <p>A strategic thinker who can connect workforce metrics to business outcomes — attrition signals, hiring velocity, cost-per-hire optimization — and present them to leadership.</p>
+                <div class="delivered">What I've delivered</div>
+                <p class="delivered-text">Drove attrition from 22% to 15% using early warning dashboards. Built recruitment funnels that cut time-to-fill by 35% and sustained 92% offer acceptance across regions.</p>
+            </div>
+            <div class="role-card reveal">
+                <div class="what-they-want">What companies want</div>
+                <h3>Data Analytics Manager</h3>
+                <p>Someone who can build the analytics function — define KPIs, establish reporting cadence, and enable self-service so leadership stops waiting for ad-hoc pulls.</p>
+                <div class="delivered">What I've delivered</div>
+                <p class="delivered-text">Eliminated 60% of ad-hoc requests by building self-service dashboards for HR, Finance, and Operations. Replaced 3-day manual billing with automated daily refresh.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ════════════ IMPACT METRICS ════════════ -->
+<section id="impact">
+    <div class="container">
+        <div class="section-label reveal">Impact</div>
+        <h2 class="section-title reveal">Numbers I stand behind.</h2>
+        <p class="section-subtitle reveal">Every one of these came from a real project with a real business problem. No vanity metrics.</p>
+        <div class="metrics-grid">
+            <div class="metric-card reveal">
+                <div class="metric-value">35%</div>
+                <div class="metric-label">Faster time-to-fill with real-time funnel visibility</div>
+            </div>
+            <div class="metric-card reveal">
+                <div class="metric-value">30%</div>
+                <div class="metric-label">Shorter billing cycle via automated invoicing dashboard</div>
+            </div>
+            <div class="metric-card reveal">
+                <div class="metric-value">22→15%</div>
+                <div class="metric-label">Attrition reduced YoY with early warning signals</div>
+            </div>
+            <div class="metric-card reveal">
+                <div class="metric-value">60%</div>
+                <div class="metric-label">Fewer ad-hoc requests through self-service analytics</div>
+            </div>
+            <div class="metric-card reveal">
+                <div class="metric-value">22%</div>
+                <div class="metric-label">Reduction in bench time with resource tracking</div>
+            </div>
+            <div class="metric-card reveal">
+                <div class="metric-value">97%</div>
+                <div class="metric-label">SLA adherence across 18+ managed service projects</div>
+            </div>
+            <div class="metric-card reveal">
+                <div class="metric-value">120+</div>
+                <div class="metric-label">Critical positions filled annually across 4 regions</div>
+            </div>
+            <div class="metric-card reveal">
+                <div class="metric-value">12-20%</div>
+                <div class="metric-label">Cost savings from consolidating 25 vendors to 12</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ════════════ CASE STUDIES ════════════ -->
+<section id="case-studies">
+    <div class="container">
+        <div class="section-label reveal">Case Studies</div>
+        <h2 class="section-title reveal">The dashboards. The stories behind them.</h2>
+        <p class="section-subtitle reveal">Click to expand. Each one started with a messy problem and no existing reporting.</p>
+
+        <div class="case-study reveal">
+            <div class="case-study-header" onclick="this.parentElement.classList.toggle('open')">
+                <div class="case-study-meta">
+                    <span class="case-study-number">01</span>
+                    <span class="case-study-title">Hiring Was Bleeding Out Before Anyone Noticed</span>
+                </div>
+                <div class="case-study-tags">
+                    <span class="cs-tag">BCG</span>
+                    <span class="cs-tag">CNH Industrial</span>
+                    <span class="cs-tag">SQL + DAX</span>
+                </div>
+                <span class="case-study-toggle">+</span>
+            </div>
+            <div class="case-study-body">
+                <div class="case-study-content">
+                    <div class="cs-section">
+                        <div class="cs-section-label">The situation</div>
+                        <p>Hiring bottlenecks were invisible until SLAs had already slipped. The recruitment team was running on email threads and weekly Excel updates — by the time someone flagged a stuck position, it had been aging for three weeks. Nobody could answer "where are we losing candidates?" without manually pulling data from two systems.</p>
+                    </div>
+                    <div class="cs-section">
+                        <div class="cs-section-label">What I built</div>
+                        <p>A real-time multi-stage funnel connecting SQL server and Excel sources. Tracked stage conversion, time-in-stage, drop-off rates, and aging profiles — with both client and internal interview feeds flowing into one view. Used 12+ custom DAX measures to calculate rolling averages, stage velocity, and offer-to-join probability. The whole thing refreshed daily instead of weekly.</p>
+                    </div>
+                    <div class="cs-section">
+                        <div class="cs-section-label">What changed</div>
+                        <div class="cs-outcomes">
+                            <div class="cs-outcome"><span class="val">35%</span><span class="desc">faster time-to-fill</span></div>
+                            <div class="cs-outcome"><span class="val">40%</span><span class="desc">better offer-to-join visibility</span></div>
+                            <div class="cs-outcome"><span class="val">8 hrs</span><span class="desc">manual reporting eliminated per week</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="case-study reveal">
+            <div class="case-study-header" onclick="this.parentElement.classList.toggle('open')">
+                <div class="case-study-meta">
+                    <span class="case-study-number">02</span>
+                    <span class="case-study-title">280 Consultants, Zero Visibility on Who's Available</span>
+                </div>
+                <div class="case-study-tags">
+                    <span class="cs-tag">12+ Projects</span>
+                    <span class="cs-tag">Power Query</span>
+                </div>
+                <span class="case-study-toggle">+</span>
+            </div>
+            <div class="case-study-body">
+                <div class="case-study-content">
+                    <div class="cs-section">
+                        <div class="cs-section-label">The situation</div>
+                        <p>With 280+ consultants deployed across 12 projects, bench decisions were reactive and always late. A consultant would come off a project on Friday, and the operations team wouldn't know until Tuesday. Skills data lived in one spreadsheet, deployment status in another, and availability projections existed nowhere.</p>
+                    </div>
+                    <div class="cs-section">
+                        <div class="cs-section-label">What I built</div>
+                        <p>Modeled resource data from multiple Excel sources using Power Query transformations. Built utilization metrics, bench aging trackers, deployment status views, and skill-mapping visuals with drill-throughs by client, technology, and project. Added forward-looking bench projections based on known project end dates.</p>
+                    </div>
+                    <div class="cs-section">
+                        <div class="cs-section-label">What changed</div>
+                        <div class="cs-outcomes">
+                            <div class="cs-outcome"><span class="val">22%</span><span class="desc">reduction in bench time</span></div>
+                            <div class="cs-outcome"><span class="val">2 wks</span><span class="desc">earlier deployment decisions</span></div>
+                            <div class="cs-outcome"><span class="val">0</span><span class="desc">spreadsheet dependency</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="case-study reveal">
+            <div class="case-study-header" onclick="this.parentElement.classList.toggle('open')">
+                <div class="case-study-meta">
+                    <span class="case-study-number">03</span>
+                    <span class="case-study-title">Three Days Every Month, Just to Send Invoices</span>
+                </div>
+                <div class="case-study-tags">
+                    <span class="cs-tag">11+ MSAs</span>
+                    <span class="cs-tag">SQL</span>
+                </div>
+                <span class="case-study-toggle">+</span>
+            </div>
+            <div class="case-study-body">
+                <div class="case-study-content">
+                    <div class="cs-section">
+                        <div class="cs-section-label">The situation</div>
+                        <p>The finance team was spending three days every month manually reconciling vendor MSAs and project billing — and still making errors. Rate cards lived in contract PDFs, deployed headcount was tracked in Excel, and project timelines were managed via email. Nobody had a single view of what we were owed versus what we'd invoiced.</p>
+                    </div>
+                    <div class="cs-section">
+                        <div class="cs-section-label">What I built</div>
+                        <p>A SQL-driven billing dashboard pulling rate cards, deployed headcount, and project timelines into one model. Added DAX measures for invoice value by client, PO utilization tracking, revenue vs. target comparisons, and overdue payment flags. Built it so finance could slice by MSA, project, or time period without touching a spreadsheet.</p>
+                    </div>
+                    <div class="cs-section">
+                        <div class="cs-section-label">What changed</div>
+                        <div class="cs-outcomes">
+                            <div class="cs-outcome"><span class="val">30%</span><span class="desc">shorter billing cycle</span></div>
+                            <div class="cs-outcome"><span class="val">0</span><span class="desc">reconciliation errors</span></div>
+                            <div class="cs-outcome"><span class="val">100%</span><span class="desc">on-time invoicing</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="case-study reveal">
+            <div class="case-study-header" onclick="this.parentElement.classList.toggle('open')">
+                <div class="case-study-meta">
+                    <span class="case-study-number">04</span>
+                    <span class="case-study-title">Monthly Reviews Were Running on Gut Feel</span>
+                </div>
+                <div class="case-study-tags">
+                    <span class="cs-tag">KEKA HRIS</span>
+                    <span class="cs-tag">Attrition</span>
+                </div>
+                <span class="case-study-toggle">+</span>
+            </div>
+            <div class="case-study-body">
+                <div class="case-study-content">
+                    <div class="cs-section">
+                        <div class="cs-section-label">The situation</div>
+                        <p>Monthly business reviews had no data backbone. Managers were walking into MBRs with scattered spreadsheets and anecdotal evidence. Attrition was creeping up, but nobody had early warning signals — by the time someone resigned, it was too late. HR metrics were being reported manually, usually two weeks behind.</p>
+                    </div>
+                    <div class="cs-section">
+                        <div class="cs-section-label">What I built</div>
+                        <p>A multi-tab scorecard integrated with KEKA HRIS covering submission-to-shortlist rates, interview-to-offer ratios, offer acceptance, onboarding TAT, and attrition trends. Transformed raw HRIS data via Power Query and built early-warning indicators that flagged teams showing pre-attrition patterns — before resignations landed.</p>
+                    </div>
+                    <div class="cs-section">
+                        <div class="cs-section-label">What changed</div>
+                        <div class="cs-outcomes">
+                            <div class="cs-outcome"><span class="val">22→15%</span><span class="desc">attrition reduced YoY</span></div>
+                            <div class="cs-outcome"><span class="val">~0</span><span class="desc">MBR prep time</span></div>
+                            <div class="cs-outcome"><span class="val">Early</span><span class="desc">warning signals before escalation</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ════════════ PROJECTS ════════════ -->
+<section id="projects">
+    <div class="container">
+        <div class="section-label reveal">Projects</div>
+        <h2 class="section-title reveal">What I've built. What I'm building.</h2>
+        <p class="section-subtitle reveal">A mix of production work and things I'm exploring on my own time.</p>
+        <div class="projects-grid">
+            <div class="project-card reveal">
+                <span class="project-status live">Live</span>
+                <h3>Client Interview Tracker</h3>
+                <p>Unified L1/L2/Final round tracking with no-show flags, feedback aging alerts, and per-client conversion benchmarks. Replaced email-thread chaos with a single view. Improved interview-to-select ratio by 28%.</p>
+                <div class="project-stack">
+                    <span>Power BI</span>
+                    <span>ATS Integration</span>
+                    <span>Excel Feeds</span>
+                    <span>DAX</span>
+                </div>
+            </div>
+            <div class="project-card reveal">
+                <span class="project-status live">Live</span>
+                <h3>Job Openings Pipeline Dashboard</h3>
+                <p>Connected KEKA ATS and Excel data to build positional heat maps, urgency flags, aging buckets, and a recruiter assignment matrix. Positions aging 30+ days dropped by 55% in the first quarter.</p>
+                <div class="project-stack">
+                    <span>KEKA ATS</span>
+                    <span>Heat Maps</span>
+                    <span>Power BI</span>
+                    <span>DAX</span>
+                </div>
+            </div>
+            <div class="project-card reveal">
+                <span class="project-status building">In Progress</span>
+                <h3>HR Analytics Starter Kit</h3>
+                <p>Building a reusable Power BI template pack for mid-size companies that don't have analytics teams yet — pre-built models for attrition, hiring velocity, and workforce planning that work out of the box with common HRIS exports.</p>
+                <div class="project-stack">
+                    <span>Power BI Template</span>
+                    <span>Star Schema</span>
+                    <span>DAX Library</span>
+                </div>
+            </div>
+            <div class="project-card reveal">
+                <span class="project-status building">In Progress</span>
+                <h3>Recruitment Cost Intelligence Model</h3>
+                <p>A cost-per-hire attribution model that connects sourcing channel spend to quality-of-hire outcomes — tracking not just who got hired, but who stayed past 6 months and who hit performance targets. The kind of data most HR teams wish they had.</p>
+                <div class="project-stack">
+                    <span>SQL</span>
+                    <span>Power BI</span>
+                    <span>Channel Analytics</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ════════════ PROCESS ════════════ -->
+<section id="process">
+    <div class="container">
+        <div class="section-label reveal">How I Work</div>
+        <h2 class="section-title reveal">From messy data to Monday-morning dashboards.</h2>
+        <p class="section-subtitle reveal">This is the framework I follow every time — whether the ask is a recruitment funnel or a billing reconciliation.</p>
+        <div class="process-steps reveal">
+            <div class="process-step">
+                <div class="step-num">01</div>
+                <h4>Listen to the Meeting</h4>
+                <p>I sit in the review where the questions come up. What's leadership actually asking? What data are they pulling up on the spot? That's where the dashboard spec lives.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-num">02</div>
+                <h4>Audit the Sources</h4>
+                <p>Map every data source — SQL tables, HRIS exports, Excel trackers, ATS feeds. Figure out what's clean, what's messy, and what's just not being captured yet.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-num">03</div>
+                <h4>Model It Right</h4>
+                <p>Build a proper star schema. Get the relationships, grain, and DAX measures right the first time so the dashboard doesn't break when data scales.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-num">04</div>
+                <h4>Build for the User</h4>
+                <p>Design the dashboard for the person who'll open it at 8:30am — not for the analyst. Clear KPIs up top, drill-throughs for detail, nothing that requires a training session.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-num">05</div>
+                <h4>Ship & Iterate</h4>
+                <p>Deploy to Power BI Service, set up scheduled refresh, train the team. Then watch how they actually use it — the second version is always better than the first.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ════════════ BEYOND THE JOB DESCRIPTION ════════════ -->
+<section id="beyond">
+    <div class="container">
+        <div class="section-label reveal">Beyond the Job Description</div>
+        <h2 class="section-title reveal">Things nobody asked me to do.</h2>
+        <p class="section-subtitle reveal">The work that doesn't show up in a job title but shapes the team around you.</p>
+        <div class="beyond-grid">
+            <div class="beyond-card reveal">
+                <div class="beyond-icon">📊</div>
+                <h4>Built the analytics culture from zero</h4>
+                <p>When I joined, there were no dashboards. No KPI frameworks. No data-driven review cadence. I didn't wait for a mandate — I built the first dashboard, showed it in a review, and suddenly everyone wanted one for their vertical.</p>
+            </div>
+            <div class="beyond-card reveal">
+                <div class="beyond-icon">🔧</div>
+                <h4>Consolidated 25 vendors to 12</h4>
+                <p>Nobody asked me to audit the vendor base. But I could see in the data that we were spreading too thin — too many partners, too much admin overhead, inconsistent quality. Ran the analysis, presented the case, and we cut it in half. Saved 12-20% on costs and reduced admin time by 30%.</p>
+            </div>
+            <div class="beyond-card reveal">
+                <div class="beyond-icon">👥</div>
+                <h4>Cross-trained teams on self-service</h4>
+                <p>Dashboards don't work if people don't trust them. I spent time training HR leads, finance managers, and ops teams on how to read the dashboards, apply filters, and pull their own answers. That's how ad-hoc requests dropped by 60%.</p>
+            </div>
+            <div class="beyond-card reveal">
+                <div class="beyond-icon">🌏</div>
+                <h4>Multi-region recruitment at scale</h4>
+                <p>Ran C2H recruitment across India, APAC, Boston, and NAMR — filling 120+ positions annually in IT, Telecom, and Consulting. Not just posting and screening — managing vendor matrices, governance reviews, and client SLAs across time zones.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ════════════ TOOLS ════════════ -->
+<section id="tools">
+    <div class="container">
+        <div class="section-label reveal">Tools & Stack</div>
+        <h2 class="section-title reveal">What I work with daily.</h2>
+        <div class="tools-categories">
+            <div class="tool-category reveal">
+                <h4>BI & Visualization</h4>
+                <div class="tool-list">
+                    <span class="tool-item">Power BI Desktop</span>
+                    <span class="tool-item">Power BI Service</span>
+                    <span class="tool-item">DAX Studio</span>
+                    <span class="tool-item">Advanced DAX</span>
+                    <span class="tool-item">Power Query / M</span>
+                </div>
+            </div>
+            <div class="tool-category reveal">
+                <h4>Data & Modeling</h4>
+                <div class="tool-list">
+                    <span class="tool-item">SQL Server</span>
+                    <span class="tool-item">Star Schema</span>
+                    <span class="tool-item">Data Modeling</span>
+                    <span class="tool-item">Excel (Advanced)</span>
+                    <span class="tool-item">Power Query ETL</span>
+                </div>
+            </div>
+            <div class="tool-category reveal">
+                <h4>HR & Operations</h4>
+                <div class="tool-list">
+                    <span class="tool-item">KEKA HRIS</span>
+                    <span class="tool-item">ATS Systems</span>
+                    <span class="tool-item">Workforce Planning</span>
+                    <span class="tool-item">MSA/SOW Governance</span>
+                    <span class="tool-item">SLA Tracking</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ════════════ WRITING ════════════ -->
+<section id="writing">
+    <div class="container">
+        <div class="section-label reveal">Writing & Ideas</div>
+        <h2 class="section-title reveal">Things I'm thinking about.</h2>
+        <p class="section-subtitle reveal">Articles I'm planning to write — topics that come up in my work constantly.</p>
+        <div class="articles-list">
+            <div class="article-item reveal">
+                <div>
+                    <h4>Why Most HR Dashboards Get Ignored (And How to Fix Yours)</h4>
+                    <p>The gap between what analysts build and what HR leaders actually need at 8:30am Monday.</p>
+                </div>
+                <span class="arrow">→</span>
+            </div>
+            <div class="article-item reveal">
+                <div>
+                    <h4>Star Schema for People Data: A Practical Guide</h4>
+                    <p>How to model HRIS, ATS, and payroll data so your Power BI reports don't fall apart at scale.</p>
+                </div>
+                <span class="arrow">→</span>
+            </div>
+            <div class="article-item reveal">
+                <div>
+                    <h4>The Attrition Early Warning System I Wish I'd Built Sooner</h4>
+                    <p>What pre-resignation patterns actually look like in data — and the DAX measures to catch them.</p>
+                </div>
+                <span class="arrow">→</span>
+            </div>
+            <div class="article-item reveal">
+                <div>
+                    <h4>From Excel Jockey to BI Architect: A Career Pivot Field Guide</h4>
+                    <p>What I learned moving from spreadsheet dashboards to production Power BI in an enterprise setting.</p>
+                </div>
+                <span class="arrow">→</span>
+            </div>
+            <div class="article-item reveal">
+                <div>
+                    <h4>Vendor Consolidation by the Numbers: When Less Is Actually More</h4>
+                    <p>How I used data to convince leadership to cut our vendor base in half — and what happened after.</p>
+                </div>
+                <span class="arrow">→</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ════════════ CONTACT ════════════ -->
+<section id="contact">
+    <div class="container contact-section">
+        <div class="section-label reveal" style="justify-content:center;">Get in Touch</div>
+        <h2 class="section-title reveal">Let's talk about what your<br>data should be telling you.</h2>
+        <p class="section-subtitle reveal">Whether it's a BI lead role, an analytics project, or just a conversation about Power BI architecture — I'm always up for a good data problem.</p>
+        <div class="contact-links reveal">
+            <a href="mailto:pankaj.bi.analyst@gmail.com" class="btn-primary">pankaj.bi.analyst@gmail.com →</a>
+            <a href="https://www.linkedin.com/in/pankaj-kumar-b1b6173a3" target="_blank" rel="noopener" class="btn-secondary">LinkedIn Profile</a>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════ FOOTER ════════════ -->
+<footer>
+    <p>© 2026 Pankaj Dhankhar · Built with intention, not templates.</p>
+</footer>
+
+<script>
+    // ── Scroll Reveal ──
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                const siblings = entry.target.parentElement.querySelectorAll('.reveal');
+                let idx = Array.from(siblings).indexOf(entry.target);
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, idx * 80);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12 });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // ── Active Nav ──
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const top = section.offsetTop - 100;
+            if (scrollY >= top) {
+                current = section.getAttribute('id');
+            }
+        });
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + current) {
+                link.classList.add('active');
+            }
+        });
+    });
+
+    // ── Close mobile nav on click ──
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.remove('open');
+        });
+    });
+</script>
+
+</body>
+</html>
